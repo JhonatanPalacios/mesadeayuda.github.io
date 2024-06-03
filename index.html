@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consola de Administración - Solicitudes de Renting Support</title>
+    <title>Mesa de Ayuda - Empresa de Alquiler de Laptops</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
@@ -15,37 +15,26 @@
         }
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 600px;
             margin: 50px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
-        .form-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .column {
-            width: 48%;
-            margin-bottom: 20px;
-        }
-        .header {
-            background-color: #475f77;
-            color: #fff;
-            padding: 10px;
+        h1 {
             text-align: center;
-            border-radius: 4px;
-            margin-bottom: 10px;
+            color: #475f77;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
         }
         label {
             margin-top: 10px;
             color: #475f77;
             display: flex;
             align-items: center;
-            width: 100%;
         }
         input, select, textarea {
             padding: 10px;
@@ -53,6 +42,18 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             width: 100%;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #875A7B;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #704b65;
         }
         .info-icon {
             margin-left: 10px;
@@ -87,329 +88,197 @@
         .info-icon:hover .tooltip {
             display: block;
         }
-        .modalidad {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-        }
-        .modalidad input {
-            margin-right: 10px;
-        }
-        .tabs {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            border-top: 2px solid #ccc;
-        }
-        .tab {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-top: none;
-            cursor: pointer;
-            text-align: center;
-            flex: 1 1 auto;
-            box-sizing: border-box;
-        }
-        .tab:hover, .tab.active {
-            background-color: #875A7B;
-            color: #fff;
-        }
-        .tab-content {
-            display: none;
-            margin-top: 20px;
-        }
-        .tab-content.active {
+        .logo {
             display: block;
-        }
-        .description-field, .extra-description {
-            width: 100%;
-            height: 100px;
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .attach-button, .browse-button {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #475f77;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .attach-button:hover, .browse-button:hover {
-            background-color: #704b65;
-        }
-        @media (max-width: 768px) {
-            .column {
-                width: 100%;
-            }
-            .tabs {
-                flex-direction: column;
-            }
-            .tab {
-                margin-bottom: 5px;
-            }
+            margin: 0 auto 20px;
+            width: 100px;
+            height: auto;
         }
     </style>
     <script>
-        function showTabContent(tabIndex) {
-            var tabs = document.querySelectorAll('.tab-content');
-            var tabButtons = document.querySelectorAll('.tab');
-            tabs.forEach(function(tab, index) {
-                if (index === tabIndex) {
-                    tab.classList.add('active');
-                    tabButtons[index].classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                    tabButtons[index].classList.remove('active');
-                }
-            });
+        function toggleFields() {
+            var requestType = document.getElementById('mainRequestType').value;
+            var rentingSupportFields = document.querySelectorAll('.renting-support');
+            var customerSupportFields = document.querySelectorAll('.customer-support');
+
+            if (requestType === 'rentingSupport') {
+                rentingSupportFields.forEach(field => field.style.display = 'block');
+                customerSupportFields.forEach(field => field.style.display = 'none');
+            } else if (requestType === 'customerSupport') {
+                rentingSupportFields.forEach(field => field.style.display = 'none');
+                customerSupportFields.forEach(field => field.style.display = 'block');
+            } else {
+                rentingSupportFields.forEach(field => field.style.display = 'none');
+                customerSupportFields.forEach(field => field.style.display = 'none');
+            }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach(function(tab, index) {
-                tab.addEventListener('click', function() {
-                    showTabContent(index);
-                });
-            });
-        });
+        function toggleSerialNumber() {
+            var issueType = document.getElementById('issueType').value;
+            var serialNumberField = document.getElementById('serialNumberField');
+            var locationField = document.getElementById('locationField');
+
+            if (issueType === 'incident') {
+                serialNumberField.style.display = 'block';
+                locationField.style.display = 'block';
+            } else {
+                serialNumberField.style.display = 'none';
+                locationField.style.display = 'none';
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('mainRequestType').value = 'rentingSupport';
+            toggleFields();
+        }
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="form-section">
-            <div class="column">
-                <div class="header">Datos de la Atención</div>
-                <label for="tipoServicio">Tipo de Servicio:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Tipo de servicio solicitado</span>
-                    </span>
-                </label>
-                <input type="text" id="tipoServicio" name="tipoServicio">
-
-                <label for="asignadoA">Asignado a:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Persona a la que se le ha asignado el caso</span>
-                    </span>
-                </label>
-                <input type="text" id="asignadoA" name="asignadoA">
-
-                <label for="tipo">Tipo:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Tipo de solicitud</span>
-                    </span>
-                </label>
-                <input type="text" id="tipo" name="tipo">
-
-                <label for="subtipo">Subtipo:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Subtipo de solicitud</span>
-                    </span>
-                </label>
-                <input type="text" id="subtipo" name="subtipo">
-
-                <label for="prioridad">Prioridad:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Nivel de prioridad del caso</span>
-                    </span>
-                </label>
-                <input type="text" id="prioridad" name="prioridad">
-
-                <label>Modalidad:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Modalidad del servicio</span>
-                    </span>
-                </label>
-                <div class="modalidad">
-                    <input type="radio" id="remoto" name="modalidad" value="Remoto">
-                    <label for="remoto">Remoto</label>
-                    <input type="radio" id="presencial" name="modalidad" value="Presencial">
-                    <label for="presencial">Presencial</label>
-                    <input type="radio" id="hibrido" name="modalidad" value="Híbrido">
-                    <label for="hibrido">Híbrido</label>
-                </div>
-
-                <label for="categoria">Categoría:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Categoría del caso</span>
-                    </span>
-                </label>
-                <input type="text" id="categoria" name="categoria">
-            </div>
-            <div class="column">
-                <div class="header">Datos del Proceso</div>
-                <label for="cuenta">Cuenta:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Cuenta asociada al proceso</span>
-                    </span>
-                </label>
-                <input type="text" id="cuenta" name="cuenta">
-
-                <label for="proceso">Proceso:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Proceso en el cual está involucrado el equipo</span>
-                    </span>
-                </label>
-                <input type="text" id="proceso" name="proceso">
-
-                <label for="suscripcion">Suscripción:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Suscripción asociada al proceso</span>
-                    </span>
-                </label>
-                <input type="text" id="suscripcion" name="suscripcion">
-
-                <label for="tiempoProceso">Tiempo del Proceso:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Duración total del proceso</span>
-                    </span>
-                </label>
-                <input type="text" id="tiempoProceso" name="tiempoProceso">
-
-                <label for="tiempoEquipo">Tiempo del equipo en Proceso:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Tiempo que el equipo lleva en el proceso</span>
-                    </span>
-                </label>
-                <input type="text" id="tiempoEquipo" name="tiempoEquipo">
-
-                <label for="fechaCompra">Fecha de compra del Equipo:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Fecha en la que se compró el equipo</span>
-                    </span>
-                </label>
-                <input type="date" id="fechaCompra" name="fechaCompra">
-
-                <label for="garantia">Garantía del Equipo:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Estado de la garantía del equipo</span>
-                    </span>
-                </label>
-                <input type="text" id="garantia" name="garantia">
-            </div>
+        <img src="net.png" alt="Logo" class="logo">
+        <h1>Mesa de Ayuda</h1>
+        <form action="/submit-ticket" method="post">
+            <label for="mainRequestType">Tipo de Servicio:
+                <span class="info-icon"><i class="fas fa-info-circle"></i>
+                    <span class="tooltip">Seleccione el tipo de solicitud</span>
+                </span>
+            </label>
+            <select id="mainRequestType" name="mainRequestType" onchange="toggleFields()" required>
+                <option value="">Seleccione</option>
+                <option value="rentingSupport">Renting Support</option>
+                <option value="customerSupport">Atención al Cliente</option>
+            </select>
 
 
-            <div class="column">
-                <div class="header">Datos del Equipo</div>
-                <label for="cliente">Cliente:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Nombre del cliente que solicita el servicio</span>
-                    </span>
-                </label>
-                <input type="text" id="cliente" name="cliente">
 
-                <label for="nombreCliente">Nombre Cliente:
+            <!-- Renting Support Fields -->
+            <div class="renting-support">
+                <label for="name">Nombres y Apellidos:
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Nombre completo del cliente</span>
+                        <span class="tooltip">Aquí se ingresa el nombre del Usuario solicitante</span>
                     </span>
                 </label>
-                <input type="text" id="nombreCliente" name="nombreCliente">
+                <input type="text" id="name" name="name">
 
                 <label for="email">Email:
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Correo electrónico del cliente</span>
+                        <span class="tooltip">Ingresar el correo del usuario</span>
                     </span>
                 </label>
                 <input type="email" id="email" name="email">
 
-                <label for="telefono">Teléfono:
+                <label for="phone">Número de Celular:
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Número de teléfono del cliente</span>
+                        <span class="tooltip">Ingresar Número de Celular</span>
                     </span>
                 </label>
-                <input type="tel" id="telefono" name="telefono">
+                <input type="tel" id="phone" name="phone">
 
-                <label for="puesto">Puesto de trabajo:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Puesto de trabajo del cliente</span>
-                    </span>
-                </label>
-                <input type="text" id="puesto" name="puesto">
 
-                <label for="categoriaUsuario">Categoría Usuario:
-                    <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Categoría del usuario según la política de la empresa</span>
-                    </span>
-                </label>
-                <input type="text" id="categoriaUsuario" name="categoriaUsuario">
 
-                <label for="responsable">Responsable Principal:
+                <label for="issueType">Tipo de Solicitud:
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Persona principal responsable del equipo</span>
+                        <span class="tooltip">Seleccionar opciones de solicitud para cada caso</span>
                     </span>
                 </label>
-                <input type="text" id="responsable" name="responsable">
+                <select id="issueType" name="issueType" onchange="toggleSerialNumber()">
+                    <option value="">Seleccione</option>
+                    <option value="incident">Incidente</option>
+                    <option value="request">Requerimiento</option>
+                </select>
 
-                <label for="numeroSerie">Número de Serie:
+
+                <div id="serialNumberField" style="display:none;">
+                    <label for="serialNumber">Número de Serie:
+                        <span class="info-icon"><i class="fas fa-info-circle"></i>
+                            <span class="tooltip">Aquí se ingresa el número de serie de la laptop</span>
+                        </span>
+                    </label>
+                    <input type="text" id="serialNumber" name="serialNumber">
+                </div>
+
+                <div id="locationField" style="display:none;">
+                    <label for="location">Dirección:
+                        <span class="info-icon"><i class="fas fa-info-circle"></i>
+                            <span class="tooltip">Ingresar dirección o ubicación donde se encuentra el equipo</span>
+                        </span>
+                    </label>
+                    <input type="text" id="location" name="location">
+                </div>
+
+                <label for="subject">Asunto:
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Número de serie del equipo</span>
+                        <span class="tooltip">Breve descripción de la solicitud</span>
                     </span>
                 </label>
-                <input type="text" id="numeroSerie" name="numeroSerie">
+                <input type="text" id="subject" name="subject">
+
+                <label for="description">Descripción Detallada:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar detalle de solicitud</span>
+                    </span>
+                </label>
+                <textarea id="description" name="description" rows="6"></textarea>
+
+                <label for="attachments">Adjuntar Archivos (si aplica):
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Adjuntar evidencia dependiendo solicitud, si es necesario</span>
+                    </span>
+                </label>
+                <input type="file" id="attachments" name="attachments" multiple>
+
+                <button type="submit">Enviar Solicitud</button>
             </div>
 
-            <div class="column">
-                <div class="header">Descripción</div>
-                <textarea class="extra-description" placeholder="Descripción adicional..."></textarea>
+
+
+            <!-- Customer Support Fields -->
+            <div class="customer-support" style="display:none;">
+                <label for="nameCustomer">Nombres y Apellidos:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Aquí se ingresa el nombre del Usuario solicitante</span>
+                    </span>
+                </label>
+                <input type="text" id="nameCustomer" name="nameCustomer">
+
+                <label for="emailCustomer">Email:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar el correo del usuario</span>
+                    </span>
+                </label>
+                <input type="email" id="emailCustomer" name="emailCustomer">
+
+                <label for="phoneCustomer">Número de Celular:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar Número de Celular</span>
+                    </span>
+                </label>
+                <input type="tel" id="phoneCustomer" name="phoneCustomer">
+
+                <label for="subjectCustomer">Asunto:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Breve descripción de la solicitud</span>
+                    </span>
+                </label>
+                <input type="text" id="subjectCustomer" name="subjectCustomer">
+
+                <label for="descriptionCustomer">Descripción Detallada:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar detalle de solicitud</span>
+                    </span>
+                </label>
+                <textarea id="descriptionCustomer" name="descriptionCustomer" rows="6"></textarea>
+
+                <label for="attachmentsCustomer">Adjuntar Archivos (si aplica):
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Adjuntar evidencia dependiendo solicitud, si es necesario</span>
+                    </span>
+                </label>
+                <input type="file" id="attachmentsCustomer" name="attachmentsCustomer" multiple>
+
+                <button type="submit">Enviar Solicitud</button>
             </div>
-        </div>
-
-        <div class="tabs">
-            <div class="tab" onclick="showTabContent(0)">Sustento de Entrega</div>
-            <div class="tab" onclick="showTabContent(1)">Pruebas</div>
-            <div class="tab" onclick="showTabContent(2)">Diagnóstico</div>
-            <div class="tab" onclick="showTabContent(3)">Recomendaciones</div>
-            <div class="tab" onclick="showTabContent(4)">Acción y Solución</div>
-            <div class="tab" onclick="showTabContent(5)">Resultado</div>
-            <div class="tab" onclick="showTabContent(6)">Documentación</div>
-            <div class="tab" onclick="showTabContent(7)">Pendientes</div>
-        </div>
-
-
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
-        <div class="tab-content">
-            <textarea class="description-field" placeholder="Descripción..."></textarea>
-            <button class="attach-button">Adjuntar Documentos</button>
-            <input type="file" class="browse-button" />
-        </div>
+        </form>
     </div>
 </body>
 </html>
