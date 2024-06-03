@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesa de Ayuda - Empresa de Alquiler de Laptops</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #875A7B, #475f77);
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #475f77;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            color: #475f77;
+            display: flex;
+            align-items: center;
+        }
+        input, select, textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #875A7B;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #704b65;
+        }
+        .info-icon {
+            margin-left: 10px;
+            cursor: pointer;
+            color: #875A7B;
+            position: relative;
+        }
+        .tooltip {
+            display: none;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            width: 120px;
+        }
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        .info-icon:hover .tooltip {
+            display: block;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+    <script>
+        function toggleFields() {
+            var requestType = document.getElementById('mainRequestType').value;
+            var rentingSupportFields = document.querySelectorAll('.renting-support');
+            var customerSupportFields = document.querySelectorAll('.customer-support');
+
+            if (requestType === 'rentingSupport') {
+                rentingSupportFields.forEach(field => field.style.display = 'block');
+                customerSupportFields.forEach(field => field.style.display = 'none');
+            } else if (requestType === 'customerSupport') {
+                rentingSupportFields.forEach(field => field.style.display = 'none');
+                customerSupportFields.forEach(field => field.style.display = 'block');
+            } else {
+                rentingSupportFields.forEach(field => field.style.display = 'none');
+                customerSupportFields.forEach(field => field.style.display = 'none');
+            }
+        }
+
+        function toggleSerialNumber() {
+            var issueType = document.getElementById('issueType').value;
+            var serialNumberField = document.getElementById('serialNumberField');
+            var locationField = document.getElementById('locationField');
+
+            if (issueType === 'incident') {
+                serialNumberField.style.display = 'block';
+                locationField.style.display = 'block';
+            } else {
+                serialNumberField.style.display = 'none';
+                locationField.style.display = 'none';
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('mainRequestType').value = 'rentingSupport';
+            toggleFields();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="net.png" alt="Logo" class="logo">
+        <h1>Mesa de Ayuda</h1>
+        <form action="/submit-ticket" method="post">
+            <label for="mainRequestType">Tipo de Servicio:
+                <span class="info-icon"><i class="fas fa-info-circle"></i>
+                    <span class="tooltip">Seleccione el tipo de solicitud</span>
+                </span>
+            </label>
+            <select id="mainRequestType" name="mainRequestType" onchange="toggleFields()" required>
+                <option value="">Seleccione</option>
+                <option value="rentingSupport">Renting Support</option>
+                <option value="customerSupport">Atención al Cliente</option>
+            </select>
+
+
+
+            <!-- Renting Support Fields -->
+            <div class="renting-support">
+                <label for="name">Nombres y Apellidos:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Aquí se ingresa el nombre del Usuario solicitante</span>
+                    </span>
+                </label>
+                <input type="text" id="name" name="name">
+
+                <label for="email">Email:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar el correo del usuario</span>
+                    </span>
+                </label>
+                <input type="email" id="email" name="email">
+
+                <label for="phone">Número de Celular:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar Número de Celular</span>
+                    </span>
+                </label>
+                <input type="tel" id="phone" name="phone">
+
+
+
+                <label for="issueType">Tipo de Solicitud:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Seleccionar opciones de solicitud para cada caso</span>
+                    </span>
+                </label>
+                <select id="issueType" name="issueType" onchange="toggleSerialNumber()">
+                    <option value="">Seleccione</option>
+                    <option value="incident">Incidente</option>
+                    <option value="request">Requerimiento</option>
+                </select>
+
+
+                <div id="serialNumberField" style="display:none;">
+                    <label for="serialNumber">Número de Serie:
+                        <span class="info-icon"><i class="fas fa-info-circle"></i>
+                            <span class="tooltip">Aquí se ingresa el número de serie de la laptop</span>
+                        </span>
+                    </label>
+                    <input type="text" id="serialNumber" name="serialNumber">
+                </div>
+
+                <div id="locationField" style="display:none;">
+                    <label for="location">Dirección:
+                        <span class="info-icon"><i class="fas fa-info-circle"></i>
+                            <span class="tooltip">Ingresar dirección o ubicación donde se encuentra el equipo</span>
+                        </span>
+                    </label>
+                    <input type="text" id="location" name="location">
+                </div>
+
+                <label for="subject">Asunto:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Breve descripción de la solicitud</span>
+                    </span>
+                </label>
+                <input type="text" id="subject" name="subject">
+
+                <label for="description">Descripción Detallada:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar detalle de solicitud</span>
+                    </span>
+                </label>
+                <textarea id="description" name="description" rows="6"></textarea>
+
+                <label for="attachments">Adjuntar Archivos (si aplica):
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Adjuntar evidencia dependiendo solicitud, si es necesario</span>
+                    </span>
+                </label>
+                <input type="file" id="attachments" name="attachments" multiple>
+
+                <button type="submit">Enviar Solicitud</button>
+            </div>
+
+
+
+            <!-- Customer Support Fields -->
+            <div class="customer-support" style="display:none;">
+                <label for="nameCustomer">Nombres y Apellidos:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Aquí se ingresa el nombre del Usuario solicitante</span>
+                    </span>
+                </label>
+                <input type="text" id="nameCustomer" name="nameCustomer">
+
+                <label for="emailCustomer">Email:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar el correo del usuario</span>
+                    </span>
+                </label>
+                <input type="email" id="emailCustomer" name="emailCustomer">
+
+                <label for="phoneCustomer">Número de Celular:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar Número de Celular</span>
+                    </span>
+                </label>
+                <input type="tel" id="phoneCustomer" name="phoneCustomer">
+
+                <label for="subjectCustomer">Asunto:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Breve descripción de la solicitud</span>
+                    </span>
+                </label>
+                <input type="text" id="subjectCustomer" name="subjectCustomer">
+
+                <label for="descriptionCustomer">Descripción Detallada:
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Ingresar detalle de solicitud</span>
+                    </span>
+                </label>
+                <textarea id="descriptionCustomer" name="descriptionCustomer" rows="6"></textarea>
+
+                <label for="attachmentsCustomer">Adjuntar Archivos (si aplica):
+                    <span class="info-icon"><i class="fas fa-info-circle"></i>
+                        <span class="tooltip">Adjuntar evidencia dependiendo solicitud, si es necesario</span>
+                    </span>
+                </label>
+                <input type="file" id="attachmentsCustomer" name="attachmentsCustomer" multiple>
+
+                <button type="submit">Enviar Solicitud</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
