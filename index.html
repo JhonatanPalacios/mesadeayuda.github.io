@@ -137,7 +137,7 @@
     <div class="container">
         <img src="net.png" alt="Logo" class="logo">
         <h1>Mesa de Ayuda</h1>
-        <form action="/submit-ticket" method="post">
+        <form action="index_consola.html" method="get">
             <label for="mainRequestType">Tipo de Servicio:
                 <span class="info-icon"><i class="fas fa-info-circle"></i>
                     <span class="tooltip">Seleccione el tipo de solicitud</span>
@@ -148,8 +148,6 @@
                 <option value="rentingSupport">Renting Support</option>
                 <option value="customerSupport">Atención al Cliente</option>
             </select>
-
-
 
             <!-- Renting Support Fields -->
             <div class="renting-support">
@@ -174,8 +172,6 @@
                 </label>
                 <input type="tel" id="phone" name="phone">
 
-
-
                 <label for="issueType">Tipo de Solicitud:
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
                         <span class="tooltip">Seleccionar opciones de solicitud para cada caso</span>
@@ -186,7 +182,6 @@
                     <option value="incident">Incidente</option>
                     <option value="request">Requerimiento</option>
                 </select>
-
 
                 <div id="serialNumberField" style="display:none;">
                     <label for="serialNumber">Número de Serie:
@@ -229,8 +224,6 @@
 
                 <button type="submit">Enviar Solicitud</button>
             </div>
-
-
 
             <!-- Customer Support Fields -->
             <div class="customer-support" style="display:none;">
