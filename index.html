@@ -174,7 +174,7 @@
 
                 <label for="issueType">Tipo de Solicitud:*
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Seleccionar opciones de solicitud para cada caso</span>
+                        <span class="tooltip">Estos campos serán habilitados al seleccionar el Servicio de Renting  Support</span>
                     </span>
                 </label>
                 <select id="issueType" name="issueType" onchange="toggleSerialNumber()">
@@ -186,7 +186,7 @@
                 <div id="serialNumberField" style="display:none;">
                     <label for="serialNumber">Número de Serie:*
                         <span class="info-icon"><i class="fas fa-info-circle"></i>
-                            <span class="tooltip">Aquí se ingresa el número de serie de la laptop</span>
+                            <span class="tooltip">Número de serie de laptop</span>
                         </span>
                     </label>
                     <input type="text" id="serialNumber" name="serialNumber">
@@ -195,7 +195,7 @@
                 <div id="locationField" style="display:none;">
                     <label for="location">Dirección:
                         <span class="info-icon"><i class="fas fa-info-circle"></i>
-                            <span class="tooltip">Ingresar dirección o ubicación donde se encuentra el equipo</span>
+                            <span class="tooltip">Dirección del solicitante de ser necesario</span>
                         </span>
                     </label>
                     <input type="text" id="location" name="location">
@@ -210,14 +210,14 @@
 
                 <label for="description">Descripción Detallada:*
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Ingresar detalle de solicitud</span>
+                        <span class="tooltip">Descripción a detalle de solicitud</span>
                     </span>
                 </label>
                 <textarea id="description" name="description" rows="6"></textarea>
 
                 <label for="attachments">Adjuntar Archivos (si aplica):
                     <span class="info-icon"><i class="fas fa-info-circle"></i>
-                        <span class="tooltip">Adjuntar evidencia dependiendo solicitud, si es necesario</span>
+                        <span class="tooltip">Opcion para adjuntar evidencias de los colicitado, si es necesario</span>
                     </span>
                 </label>
                 <input type="file" id="attachments" name="attachments" multiple>
